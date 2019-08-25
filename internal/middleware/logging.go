@@ -5,7 +5,8 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func LoggingMiddleware() gin.HandlerFunc {
+// Logging Logs every request
+func Logging() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
 

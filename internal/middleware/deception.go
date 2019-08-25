@@ -3,16 +3,15 @@ package middleware
 import (
 	"net/http/httputil"
 	"net/url"
-	_ "time"
 
-	_ "github.com/cevatbarisyilmaz/lossy"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
-	decProxy "github.com/dj95/deception-proxy/internal/proxy"
+	"github.com/dj95/deception-proxy/internal/roundtrip"
 )
 
+// Deception Proxy requests with different latency, packet loss rate and bandwidth
 func Deception() gin.HandlerFunc {
 	// read requested values from the config
 	target := viper.GetString("conn.target")
@@ -29,10 +28,17 @@ func Deception() gin.HandlerFunc {
 	proxy := httputil.NewSingleHostReverseProxy(targetURL)
 
 	// set custom round tripper with lossy
-	proxy.Transport = decProxy.NewLossyRoundTrip()
+	proxy.Transport = roundtrip.NewLossy()
 
 	// return the handler function
 	return func(c *gin.Context) {
+		// do not proxy the healthz route
+		if c.Request.RequestURI == "/healthz" {
+			c.Next()
+
+			return
+		}
+
 		// proxy the incoming request
 		proxy.ServeHTTP(c.Writer, c.Request)
 

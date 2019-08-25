@@ -12,13 +12,16 @@ import (
 	"github.com/cevatbarisyilmaz/lossy"
 )
 
+// LossOptions Bundles the loss options for lossy
 type LossOptions struct {
-	Bandwidth  int
-	MinLatency time.Duration
-	MaxLatency time.Duration
-	LossRate   float64
+	Bandwidth      int
+	MinLatency     time.Duration
+	MaxLatency     time.Duration
+	LossRate       float64
+	HeaderOverhead int
 }
 
+// NewLossyTransport Creates a new http transport with loss connection
 func NewLossyTransport(options *LossOptions) *http.Transport {
 	return &http.Transport{
 		Dial:                  dial(options),
@@ -47,7 +50,7 @@ func dial(options *LossOptions) func(string, string) (net.Conn, error) {
 			options.MinLatency,
 			options.MaxLatency,
 			options.LossRate,
-			40,
+			options.HeaderOverhead,
 		)
 
 		return lossyConn, nil

@@ -6,6 +6,7 @@ import (
 	"github.com/dj95/deception-proxy/internal/middleware"
 )
 
+// Setup Initialize a new gin engine with routes and middlewares
 func Setup() *gin.Engine {
 	// create a new empty engine
 	engine := gin.New()
@@ -13,7 +14,7 @@ func Setup() *gin.Engine {
 	// register middlewares
 	engine.Use(
 		gin.Recovery(),
-		middleware.LoggingMiddleware(),
+		middleware.Logging(),
 		middleware.Deception(),
 	)
 

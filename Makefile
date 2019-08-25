@@ -26,11 +26,13 @@ build:
 		$(GOBUILD) -o $(BINARY_PATH)$(BINARY_NAME) -v cmd/deception-proxy/main.go
 
 test:
+		mkdir -p report
 		$(GOTEST) -v -short -covermode=count $(TEST_FILES)
 		$(GOLINT) -set_exit_status $(TEST_FILES)
 		CC=clang $(GOTEST) -v -msan -short $(TEST_FILES)
 
 test-coverage:
+		mkdir -p report
 		$(GOTEST) -v -count=1 -short -covermode=count -coverprofile report/cover.out $(TEST_FILES)
 		$(GOCMD) tool cover -html=report/cover.out -o report/cover.html
 
