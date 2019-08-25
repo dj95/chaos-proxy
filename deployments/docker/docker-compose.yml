@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+  deception_proxy:
+    build:
+      context: ../..
+      dockerfile: build/package/Dockerfile
+    image: deception-proxy
+    ports:
+    - "8080:8080"
+    volumes:
+    - "../../configs/config.yml:/config.yml"

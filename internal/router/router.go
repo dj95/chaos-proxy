@@ -14,6 +14,7 @@ func Setup() *gin.Engine {
 	engine.Use(
 		gin.Recovery(),
 		middleware.LoggingMiddleware(),
+		middleware.Deception(),
 	)
 
 	// return the engine

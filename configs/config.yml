@@ -1,4 +1,52 @@
+# core settings for the proxy server
 core:
+    # log_level of the server
+    #
+    # This key can be set to:
+    #   - "debug"
+    #   - "info"
+    #
+    # If another value is set, deception-proxy will fall
+    # back to the info level.
     log_level: "debug"
+
+    # log_format specifies the format to log
+    #
+    # This key can be set to:
+    #   - "text"
+    #   - "json"
+    #
+    # If another value is set, the server will fall back
+    # to the text format.
+    log_format: "text"
+
+    # address The address deception-proxy will bind on
     address: "0.0.0.0"
+
+    # port The port deception-proxy will bind on
     port: 8080
+
+# conn configures the connection parameters like bandwidth
+# properties and the target for the proxy
+conn:
+    # target specifies the target that should be reached
+    # by proxying the requests
+    target: "https://www.heise.de"
+
+    # bandwidth sets the bandwidth in bit/sec.
+    #
+    # The default value is set to 8 Mbit/sec. If set to 0 or
+    # a negative value, the bandwidth will be unlimited.
+    bandwidth: 8388608
+
+    # overhead specifies the overhead for the packages.
+    overhead: "v4_tcp_max"
+
+    # latency configures the minimal and maximal latency in ms
+    latency:
+        min: 10
+        max: 100
+
+    # loss_rate sets the packet loss rate as a float. Set to 1.0 will
+    # drop all packages
+    loss_rate: 0.1

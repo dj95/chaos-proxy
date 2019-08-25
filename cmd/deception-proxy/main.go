@@ -35,12 +35,18 @@ func init() {
 
 	// set the default log level and mode
 	log.SetLevel(log.InfoLevel)
+	log.SetFormatter(&log.TextFormatter{})
 	gin.SetMode(gin.ReleaseMode)
 
 	// activate the debug mode
 	if viper.GetString("core.log_level") == "debug" {
 		log.SetLevel(log.DebugLevel)
 		gin.SetMode(gin.DebugMode)
+	}
+
+	// set the json formatter if configured
+	if viper.GetString("core.log_format") == "json" {
+		log.SetFormatter(&log.JSONFormatter{})
 	}
 
 	// open the io writer for the log file
