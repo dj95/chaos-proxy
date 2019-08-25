@@ -1,0 +1,4 @@
+vendor/
+report/
+deception-proxy
+*.log
