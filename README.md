@@ -28,6 +28,9 @@
 
 ## 🐳 Docker
 
+- Customize the [./configs/config.yml](./configs/config.yml)
+- Run `docker run -p "8080:8080" -v "${PWD}/config.yml:/config.yml" dj95/deception-proxy` in the same directory with the *config.yml*
+
 
 ## 🔧 Usage
 
@@ -37,5 +40,12 @@
 
 ## 🤝 Contributing
 
+If you are missing features or find some annoying bugs please feel free to submit the as issue and a bugfix with in a pull request :)
+
 
 ## 📝 License
+
+(c) 2019 Daniel Jankowski
+
+
+This project is licensed under the MIT license.
