@@ -39,7 +39,7 @@ conn:
     # a negative value, the bandwidth will be unlimited.
     bandwidth: 8388608
 
-    # overhead specifies the overhead for the packages.
+    # overhead specifies the header overhead for the packages.
     overhead: "v4_tcp_max"
 
     # latency configures the minimal and maximal latency in ms
