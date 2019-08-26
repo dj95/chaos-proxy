@@ -23,8 +23,8 @@ func NewLossy() *Lossy {
 	// create the loss options to use
 	lossOptions := &lossytransport.LossOptions{
 		Bandwidth:      int(viper.GetInt("conn.bandwidth") / 8),
-		MinLatency:     10 * time.Millisecond,
-		MaxLatency:     100 * time.Millisecond,
+		MinLatency:     time.Duration(viper.GetInt("conn.latency.min")) * time.Millisecond,
+		MaxLatency:     time.Duration(viper.GetInt("conn.latency.max")) * time.Millisecond,
 		LossRate:       viper.GetFloat64("conn.loss_rate"),
 		HeaderOverhead: 40,
 	}

@@ -1,0 +1,37 @@
+package router
+
+import (
+	"testing"
+
+	"github.com/spf13/viper"
+	"github.com/stretchr/testify/assert"
+)
+
+func TestSetup(t *testing.T) {
+	tests := []struct {
+		description   string
+		targetURL     string
+		expectedError bool
+	}{
+		{
+			description:   "success",
+			targetURL:     "",
+			expectedError: false,
+		},
+		{
+			description:   "non initializable deception middleware",
+			targetURL:     "foo\tbar",
+			expectedError: true,
+		},
+	}
+
+	for _, test := range tests {
+		viper.Set("conn.target", test.targetURL)
+
+		_, err := Setup()
+
+		assert.Equalf(t, test.expectedError, err != nil, test.description)
+
+		viper.Set("conn.target", "")
+	}
+}

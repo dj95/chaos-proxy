@@ -70,8 +70,15 @@ func init() {
 }
 
 func main() {
-	router := router.Setup()
+	// create a new router
+	router, err := router.Setup()
 
+	// error handling
+	if err != nil {
+		log.Fatalf("Cannot initialize router: %s", err.Error())
+	}
+
+	// run the router
 	router.Run(fmt.Sprintf(
 		"%s:%d",
 		viper.GetString("core.address"),

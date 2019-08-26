@@ -21,7 +21,14 @@ func TestLogging(t *testing.T) {
 		method       string
 		route        string
 		expectedCode int
-	}{}
+	}{
+		{
+			description:  "call the health route to trigger the logging middleware",
+			method:       "GET",
+			route:        "/healthz",
+			expectedCode: 200,
+		},
+	}
 
 	viper.Set("conn.target", s.URL)
 
