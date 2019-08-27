@@ -15,7 +15,9 @@
   <a href="https://hub.docker.com/r/dj95/deception-proxy">
     <img alt="Pulls from DockerHub" src="https://img.shields.io/docker/pulls/dj95/deception-proxy.svg?style=flat-square" />
   </a>
+  <b>Warning! The image is not yet available on docker hub</b>
 </p>
+
 
 
 ## 📦 Requirements
