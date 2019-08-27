@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"net/http/httputil"
 	"net/url"
 
@@ -18,8 +17,6 @@ func Deception() (gin.HandlerFunc, error) {
 
 	// parse the target url
 	targetURL, err := url.Parse(target)
-
-	fmt.Printf("----- %v - %v\n", targetURL, err)
 
 	// error handling
 	if err != nil {

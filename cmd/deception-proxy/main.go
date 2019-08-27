@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -30,8 +31,22 @@ func init() {
 
 	// read the config file
 	if err := viper.ReadInConfig(); err != nil {
-		panic("cannot read config file")
+		log.Warnf("Cannot read config file: %s", err.Error())
 	}
+
+	// read overrides from the environment
+	viper.SetEnvPrefix("DP")
+	viper.AutomaticEnv()
+
+	// create an env replacer in order to reach core variables
+	replacer := strings.NewReplacer(
+		"CORE.", "CORE_",
+		"CONN.", "CONN_",
+		"LATENCY.", "LATENCY_",
+	)
+	viper.SetEnvKeyReplacer(replacer)
+
+	// TODO: check configured values
 
 	// set the default log level and mode
 	log.SetLevel(log.InfoLevel)
