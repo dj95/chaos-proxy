@@ -49,24 +49,20 @@ The following environment variables are available:
 
 - **DP_CORE_LOG_LEVEL** log_level of the server
     This key can be set to:
-      - "debug"
-      - "info"
-
+      *"debug"*
+      *"info"*
     If another value is set, deception-proxy will fall
     back to the info level.
-
 - **DP_CORE_LOG_FORMAT** specifies the format to log
     This key can be set to:
-      - "text"
-      - "json"
-
+      *"text"*
+      *"json"*
     If another value is set, the server will fall back
     to the text format.
 - **DP_CORE_ADDRESS** address for the proxies socket
 - **DP_CORE_PORT** port for the proxies socket
 - **DP_CONN_TARGET** target url that should be proxied
 - **DP_CONN_BANDWIDTH** sets the bandwidth in bit/sec.
-
     The default value is set to 8 Mbit/sec. If set to 0 or
     a negative value, the bandwidth will be unlimited.
 - **DP_CONN_OVERHEAD** specifies the header overhead for the packages.
