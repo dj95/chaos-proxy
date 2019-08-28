@@ -1,23 +1,8 @@
 kind: pipeline
-name: build-and-test
+name: testing
 
 steps:
-- name: build
-  image: docker:dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  # wait for the docker service to spin up
-  - sleep 5
-  # build the image
-  - |
-      docker build \
-        -t test-image \
-        -f build/package/Dockerfile \
-        .
-
-- name: test
+- name: unittests
   image: golang
   commands:
   # enable go modules
@@ -25,16 +10,11 @@ steps:
   # run tests
   - go test ./...
 
-
-volumes:
-- name: dockersock
-  temp: {}
-
-
-services:
-- name: docker
-  image: docker:dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-
+- name: lint
+  image: golang
+  commands:
+  # enable go modules
+  - export GO111MODULE=on
+  - go get -u golang.org/x/lint/golint
+  # run tests
+  - golint -set_exit_status ./...
