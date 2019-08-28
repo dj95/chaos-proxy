@@ -1,5 +1,5 @@
 kind: pipeline
-name: default
+name: build-and-test
 
 steps:
 - name: build
@@ -14,7 +14,6 @@ steps:
         -f build/package/Dockerfile \
         .
 
-steps:
 - name: test
   image: golang
   commands:
