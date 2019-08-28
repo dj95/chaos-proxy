@@ -20,3 +20,18 @@ steps:
   commands:
   - export GO111MODULE=on
   - go test ./...
+
+
+volumes:
+- name: dockersock
+  temp: {}
+
+
+services:
+- name: docker
+  image: docker:dind
+  privileged: true
+  volumes:
+  - name: dockersock
+    path: /var/run
+
