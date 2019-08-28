@@ -3,6 +3,9 @@
 <p align="center">
   A proxy for testing out the behaviour of network applications with bandwidth limitations, latency and packet loss.
   <br><br>
+  <a href="https://cloud.drone.io/dj95/deception-proxy">
+    <img alt="BuildStatus" src="https://cloud.drone.io/api/badges/dj95/deception-proxy/status.svg" />
+  </a>
   <a href="https://godoc.org/github.com/dj95/deception-proxy">
     <img alt="GoDoc" src="https://godoc.org/github.com/dj95/deception-proxy?status.svg" />
   </a>

@@ -74,7 +74,7 @@ func init() {
 	// create the log output
 	logOutput := io.MultiWriter(os.Stdout, file)
 
-	// if no error occured...
+	// if no error occurred...
 	if err != nil {
 		logOutput = os.Stdout
 		log.Info("Failed to log to file, using default stderr")
