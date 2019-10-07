@@ -9,7 +9,7 @@ steps:
   - export GO111MODULE=on
   - mkdir -p report
   # run tests
-  - go test -covermode=count -coerprofile=report/cover.out ./...
+  - go test -covermode=count -coverprofile=report/cover.out ./...
 
 - name: coverage
   image: plugins/codecov
