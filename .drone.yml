@@ -7,14 +7,38 @@ steps:
   commands:
   # enable go modules
   - export GO111MODULE=on
+  - mkdir -p report
   # run tests
-  - go test ./...
+  - go test -covermode=count -coverprofile=report/cover.out ./...
+
+- name: coverage
+  image: plugins/codecov
+  depends_on:
+  - unittests 
+  settings:
+    token:
+      from_secret: CODECOV_TOKEN
+    paths:
+    - report/
+    files:
+    - "*.out"
 
 - name: lint
   image: golang
   commands:
+  - go get -u golang.org/x/lint/golint \
   # enable go modules
   - export GO111MODULE=on
-  - go get -u golang.org/x/lint/golint
   # run tests
   - golint -set_exit_status ./...
+
+- name: staticcheck
+  image: golang
+  depends_on:
+  - lint
+  commands:
+  - go get -u honnef.co/go/tools/cmd/staticcheck
+  # enable go modules
+  - export GO111MODULE=on
+  # run tests
+  - staticcheck ./...

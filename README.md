@@ -15,6 +15,9 @@
   <a href="https://github.com/dj95/deception-proxy/releases">
     <img alt="latest version" src="https://img.shields.io/github/tag/dj95/deception-proxy.svg" />
   </a>
+  <a href="https://codecov.io/gh/dj95/deception-proxy">
+    <img src="https://codecov.io/gh/dj95/deception-proxy/branch/master/graph/badge.svg" />
+  </a>
 </p>
 
 

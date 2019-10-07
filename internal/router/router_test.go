@@ -18,11 +18,6 @@ func TestSetup(t *testing.T) {
 			targetURL:     "",
 			expectedError: false,
 		},
-		{
-			description:   "non initializable deception middleware",
-			targetURL:     "foo\tbar",
-			expectedError: true,
-		},
 	}
 
 	for _, test := range tests {

@@ -8,7 +8,7 @@ core:
     #
     # If another value is set, deception-proxy will fall
     # back to the info level.
-    log_level: "debug"
+    log_level: "info"
 
     # log_format specifies the format to log
     #
@@ -18,35 +18,47 @@ core:
     #
     # If another value is set, the server will fall back
     # to the text format.
-    log_format: "text"
+    log_format: "json"
 
     # address The address deception-proxy will bind on
     address: "0.0.0.0"
 
-    # port The port deception-proxy will bind on
-    port: 8080
+    # port The port deception-proxy's api will bind on
+    port: 3000
 
 # conn configures the connection parameters like bandwidth
-# properties and the target for the proxy
+# properties and the target for the proxy.
 conn:
-    # target specifies the target that should be reached
-    # by proxying the requests
-    target: "https://www.heise.de"
+    testconnection:
+        # protocol specifies which protocol should be used for
+        # the listener. Valid values are:
+        #
+        # - 'tcp'
+        # - 'udp'
+        protocol: "tcp"
 
-    # bandwidth sets the bandwidth in bit/sec.
-    #
-    # The default value is set to 8 Mbit/sec. If set to 0 or
-    # a negative value, the bandwidth will be unlimited.
-    bandwidth: 8388608
+        # target specifies the target that should be reached
+        # by proxying the requests.
+        target: "127.0.0.1:80"
 
-    # overhead specifies the header overhead for the packages.
-    overhead: "v4_tcp_max"
+        # bandwidth sets the bandwidth in bit/sec.
+        #
+        # The default value is set to 8 Mbit/sec. If set to 0 or
+        # a negative value, the bandwidth will be unlimited.
+        bandwidth: 8388608
 
-    # latency configures the minimal and maximal latency in ms
-    latency:
-        min: 10
-        max: 100
+        # overhead specifies the header overhead for the packages.
+        overhead: "v4_tcp_max"
 
-    # loss_rate sets the packet loss rate as a float. Set to 1.0 will
-    # drop all packages
-    loss_rate: 0.1
+        # latency configures the minimal and maximal latency in ms.
+        latency:
+            min: 10
+            max: 100
+
+        # loss_rate sets the packet loss rate as a float. Set to 1.0 will
+        # drop all packages.
+        loss_rate: 0.1
+
+        # listen_port specifies the port to listen on for forwarding packets
+        # to the defined target with the configured loss options.
+        listen_port: 8080

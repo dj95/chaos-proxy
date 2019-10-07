@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/dj95/deception-proxy/internal/router"
+	"github.com/dj95/deception-proxy/pkg/config"
+	"github.com/dj95/deception-proxy/pkg/proxy"
 )
 
 func init() {
@@ -46,8 +48,6 @@ func init() {
 	)
 	viper.SetEnvKeyReplacer(replacer)
 
-	// TODO: check configured values
-
 	// set the default log level and mode
 	log.SetLevel(log.InfoLevel)
 	log.SetFormatter(&log.TextFormatter{})
@@ -77,7 +77,7 @@ func init() {
 	// if no error occurred...
 	if err != nil {
 		logOutput = os.Stdout
-		log.Info("Failed to log to file, using default stderr")
+		log.Info("failed to log to file, using default stderr")
 	}
 
 	// set the stdout + file logger
@@ -85,15 +85,33 @@ func init() {
 }
 
 func main() {
-	// create a new router
-	router, err := router.Setup()
+	// get the targets from the configuration
+	targets := config.Parse(
+		viper.GetStringMap("conn"),
+	)
 
-	// error handling
-	if err != nil {
-		log.Fatalf("Cannot initialize router: %s", err.Error())
+	// start the proxy servers for every target
+	for name, target := range targets {
+		log.Infof("starting target: %s", name)
+
+		// create the proxy
+		proxyConn, err := proxy.New(target)
+
+		// error handling
+		if err != nil {
+			log.Errorf("%s", err.Error())
+
+			continue
+		}
+
+		// start the listener
+		go proxyConn.StartListener()
 	}
 
-	// run the router
+	// initialize a new router for the api
+	router, _ := router.Setup()
+
+	// start the router
 	router.Run(fmt.Sprintf(
 		"%s:%d",
 		viper.GetString("core.address"),
