@@ -23,10 +23,19 @@ steps:
     files:
     - "*.out"
 
-- name: lint
+- name: test-dependencies
   image: golang
   commands:
-  - go get -u golang.org/x/lint/golint
+  - |
+      go get -u \
+        golang.org/x/lint/golint \
+        honnef.co/go/tools/cmd/staticcheck
+
+- name: lint
+  image: golang
+  depends_on:
+  - test-dependencies
+  commands:
   # enable go modules
   - export GO111MODULE=on
   # run tests
@@ -34,8 +43,9 @@ steps:
 
 - name: staticcheck
   image: golang
+  depends_on:
+  - test-dependencies
   commands:
-  - go get -u honnef.co/go/tools/cmd/staticcheck
   # enable go modules
   - export GO111MODULE=on
   # run tests
