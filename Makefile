@@ -31,6 +31,7 @@ test:
 		$(GOCMD) tool cover -html=report/cover.out -o report/cover.html
 		$(GOLINT) -set_exit_status $(TEST_FILES)
 		CC=clang $(GOTEST) -v -msan -short $(TEST_FILES)
+		staticcheck $(TEST_FILES)
 
 clean:
 		$(GOCLEAN)
