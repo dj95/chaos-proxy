@@ -14,7 +14,7 @@ steps:
 - name: coverage
   image: plugins/codecov
   depends_on:
-  - unittests
+  - unittests 
   settings:
     token:
       from_secret: CODECOV_TOKEN
@@ -26,17 +26,17 @@ steps:
 - name: lint
   image: golang
   commands:
+  - go get -u golang.org/x/lint/golint
   # enable go modules
   - export GO111MODULE=on
-  - go get -u golang.org/x/lint/golint
   # run tests
   - golint -set_exit_status ./...
 
 - name: staticcheck
   image: golang
   commands:
+  - go get -u honnef.co/go/tools/cmd/staticcheck
   # enable go modules
   - export GO111MODULE=on
-  - go get -u honnef.co/go/tools/cmd/staticcheck
   # run tests
   - staticcheck ./...
