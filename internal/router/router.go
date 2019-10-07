@@ -11,23 +11,22 @@ func Setup() (*gin.Engine, error) {
 	// create a new empty engine
 	engine := gin.New()
 
-	// initialize the deception middleware
-	deceptionMiddleware, err := middleware.Deception()
-
-	// error checking
-	if err != nil {
-		return nil, err
-	}
-
 	// register middlewares
 	engine.Use(
 		gin.Recovery(),
 		middleware.Logging(),
-		deceptionMiddleware,
 	)
 
 	// register routes
 	engine.GET("/healthz", HealthzHandler)
+
+	// define an api group for target based routes
+	targetGroup := engine.Group("/api/{target}")
+	{
+		// TODO: get config
+		// TODO: set different single parameters
+		targetGroup.GET("/config")
+	}
 
 	// return the engine
 	return engine, nil
