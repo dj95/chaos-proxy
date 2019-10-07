@@ -37,7 +37,7 @@ func TestTCPStartListener(t *testing.T) {
 			proxy: &TCPProxy{
 				&config.Target{
 					Protocol:   "tcp",
-					Target:     strings.TrimLeft(s.URL, "http://"),
+					Target:     strings.TrimPrefix(s.URL, "http://"),
 					ListenPort: 8080,
 					Latency: &config.Latency{
 						Min: 10,

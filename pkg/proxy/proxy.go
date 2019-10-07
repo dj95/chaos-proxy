@@ -22,7 +22,6 @@ func New(target *config.Target) (Proxy, error) {
 		proxy = &TCPProxy{
 			Target: target,
 		}
-		break
 	default:
 		return nil, fmt.Errorf("wrong protocol given for target")
 	}
