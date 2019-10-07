@@ -31,6 +31,8 @@ jobs:
       run: |
         # install go lint
         go get golang.org/x/lint/golint
+        # add the GOBIN to the path
+        export PATH="$PATH:$( go env GOPATH )/bin"
         # run the linter
         golint -set_exit_status `go list ./...`
 
@@ -38,5 +40,7 @@ jobs:
       run: |
         # install staticcheck
         go get honnef.co/go/tools/cmd/staticcheck
+        # add the GOBIN to the path
+        export PATH="$PATH:$( go env GOPATH )/bin"
         # run staticcheck on the source code
         staticcheck `go list ./...`
