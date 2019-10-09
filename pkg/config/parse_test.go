@@ -33,7 +33,7 @@ func TestParse(t *testing.T) {
 				"listen_port": 8080,
 			},
 			expectedResult: map[string]*Target{
-				"testconn": &Target{
+				"testconn": {
 					Protocol:  "tcp",
 					Target:    "127.0.0.1:80",
 					Bandwidth: 8388608,

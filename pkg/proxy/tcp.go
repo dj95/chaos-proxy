@@ -103,7 +103,7 @@ func (p *TCPProxy) forwardData(lossyConn net.Conn, conn net.Conn) {
 		// forward the request
 		_, err := io.Copy(lossyConn, conn)
 
-		// if an error occured
+		// if an error occurred
 		if err != nil {
 			log.Infof("cannot forward data from client to target")
 		}
@@ -118,7 +118,7 @@ func (p *TCPProxy) forwardData(lossyConn net.Conn, conn net.Conn) {
 		// forward the request
 		_, err := io.Copy(conn, lossyConn)
 
-		// if an error occured
+		// if an error occurred
 		if err != nil {
 			log.Infof("cannot forward data from target to client")
 		}

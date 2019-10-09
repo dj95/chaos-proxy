@@ -46,7 +46,7 @@ func Parse(input map[string]interface{}) map[string]*Target {
 			continue
 		}
 
-		// save the target if no error occured
+		// save the target if no error occurred
 		output[key] = target
 	}
 
