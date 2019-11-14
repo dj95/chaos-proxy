@@ -1,0 +1,171 @@
+swagger: "2.0"
+info:
+  description: |
+    A small proxy to test out applications with different bandwidth, latency and packet loss 
+  version: "1.0.0"
+  title: "deception-proxy"
+
+host: "."
+basePath: "/"
+tags:
+- name: "connections"
+  description: "Configure and monitor connections."
+- name: "operational"
+  description: "Routes for operational purposes."
+- name: "debug"
+  description: "Routes for debugging and educational purposes. They are disabled in production mode!"
+
+schemes:
+- "https"
+paths:
+  /healthz:
+    get:
+      tags:
+      - "operational"
+      summary: "Perform a healthcheck"
+      description: ""
+      produces:
+      - "text/plain"
+      responses:
+        200:
+          description: "Everything runs well"
+        500:
+          description: "The service runs unhealthy"
+  /metrics:
+    get:
+      tags:
+      - "operational"
+      summary: "Print service metrics"
+      description: ""
+      produces:
+      - "text/plain"
+      responses:
+        200:
+          description: "Returns metrics"
+  /doc:
+    get:
+      tags:
+      - "debug"
+      summary: "Print this documentation"
+      description: ""
+      produces:
+      - "text/html"
+      responses:
+        200:
+          description: "Returns the documentation"
+          
+  /api/conn:
+    get:
+      tags:
+      - "connections"
+      summary: "Retrieve all configured and running connections"
+      description: "This route is used to retrieve information about all configured and running proxies."
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Details about all connections are returned"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/config'
+        403:
+          description: "Access denied"
+          
+  /api/conn/{id}:
+    get:
+      tags:
+      - "connections"
+      summary: "Get information about a running connection."
+      description: "This route is used to retrieve the configuration of a running proxy connection."
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "The identifier of the connection to retrieve the information for."
+        type: string
+      responses:
+        200:
+          description: "Remote-access details are returned"
+          schema:
+            $ref: '#/definitions/config'
+        404:
+          description: "Connection not found"
+          schema:
+            type: object
+
+    post:
+      tags:
+      - "connections"
+      summary: "Update a running connection."
+      description: "This route is used to update a specific target."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "The identifier of the connection to update."
+        type: string
+      - in: "body"
+        name: "config"
+        required: true
+        description: "The updated json configuration for the connection."
+        schema:
+          $ref: '#/definitions/config'
+      responses:
+        200:
+          description: "Remote-access details are returned"
+          schema:
+            $ref: '#/definitions/status'
+        404:
+          description: "Connection not found"
+          
+
+definitions:
+  status:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      msg:
+        type: string
+        example: "connection updated"
+  config:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "testconnection"
+      protocol:
+        type: string
+        example: "tcp"
+      target:
+        type: string
+        example: "127.0.0.1:80"
+      bandwidth:
+        type: integer
+        example: 8388608
+      overhead:
+        type: string
+        example: "v4_tcp_max"
+      latency:
+        type: object
+        properties:
+          min:
+            type: integer
+            example: 10
+          max:
+            type: integer
+            example: 100
+      loss_rate:
+        type: number
+        example: 0.1
+      listen_port:
+        type: integer
+        example: 8080
