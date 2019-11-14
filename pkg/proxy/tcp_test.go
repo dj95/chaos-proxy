@@ -1,6 +1,7 @@
 package proxy
 
 import (
+	"fmt"
 	"math/rand"
 	"net/http"
 	"net/http/httptest"
@@ -19,10 +20,13 @@ func TestTCPStartListener(t *testing.T) {
 		w.Write([]byte(`OK`))
 	}))
 
+	randomPort := rand.Intn(10000) + 30000
+
 	tests := []struct {
-		description   string
-		proxy         Proxy
-		expectedError bool
+		description     string
+		proxy           Proxy
+		closeConnection bool
+		expectedError   bool
 	}{
 		{
 			description: "port out of range",
@@ -39,7 +43,23 @@ func TestTCPStartListener(t *testing.T) {
 				Target: &config.Target{
 					Protocol:   "tcp",
 					Target:     strings.TrimPrefix(s.URL, "http://"),
-					ListenPort: rand.Intn(10000) + 50000,
+					ListenPort: randomPort,
+					Latency: &config.Latency{
+						Min: 10,
+						Max: 100,
+					},
+				},
+			},
+			expectedError: false,
+		},
+		{
+			description:     "close connection before http request",
+			closeConnection: true,
+			proxy: &TCPProxy{
+				Target: &config.Target{
+					Protocol:   "tcp",
+					Target:     strings.TrimPrefix(s.URL, "http://"),
+					ListenPort: randomPort + 1,
 					Latency: &config.Latency{
 						Min: 10,
 						Max: 100,
@@ -51,20 +71,29 @@ func TestTCPStartListener(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		go func(test *struct {
-			description   string
-			proxy         Proxy
-			expectedError bool
-		}) {
-			err := test.proxy.StartListener()
+		err := test.proxy.StartListener()
 
-			assert.Equalf(t, test.expectedError, err != nil, test.description)
-		}(&test)
+		assert.Equalf(t, test.expectedError, err != nil, test.description)
+
+		if test.expectedError {
+			continue
+		}
+
+		if test.closeConnection {
+			test.proxy.Shutdown()
+		}
 
 		time.Sleep(1.0 * time.Second)
 
-		req, _ := http.NewRequest("GET", "http://127.0.0.1:8080", nil)
+		req, _ := http.NewRequest(
+			"GET",
+			fmt.Sprintf("http://127.0.0.1:%d/", randomPort),
+			nil,
+		)
 
-		_, _ = http.DefaultClient.Do(req)
+		res, err := http.DefaultClient.Do(req)
+
+		fmt.Printf("%v\n", err)
+		fmt.Printf("%d\n", res.StatusCode)
 	}
 }
