@@ -11,9 +11,9 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 
-	"github.com/dj95/deception-proxy/internal/router"
-	"github.com/dj95/deception-proxy/pkg/config"
-	"github.com/dj95/deception-proxy/pkg/proxy"
+	"github.com/dj95/chaos-proxy/internal/router"
+	"github.com/dj95/chaos-proxy/pkg/config"
+	"github.com/dj95/chaos-proxy/pkg/proxy"
 )
 
 func init() {
@@ -66,7 +66,7 @@ func init() {
 
 	// open the io writer for the log file
 	file, err := os.OpenFile(
-		"deception-proxy.log",
+		"chaos-proxy.log",
 		os.O_CREATE|os.O_WRONLY|os.O_APPEND,
 		0666,
 	)

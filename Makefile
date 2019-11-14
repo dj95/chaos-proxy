@@ -8,7 +8,7 @@ GOGET=$(GOCMD) get
 
 # Build settings
 BINARY_PATH=./bin/
-BINARY_NAME=deception-proxy
+BINARY_NAME=chaos-proxy
 BINARY_LINUX=$(BINARY_NAME)_linux
 BINARY_WINDOWS=$(BINARY_NAME).exe
 BINARY_MACOS=$(BINARY_NAME)_macos
@@ -19,11 +19,11 @@ TEST_FILES := $(shell $(GOCMD) list ./...)
 all: deps test
 
 run:
-		$(GOBUILD) -o $(BINARY_NAME) -v cmd/deception-proxy/main.go
+		$(GOBUILD) -o $(BINARY_NAME) -v cmd/chaos-proxy/main.go
 		./$(BINARY_NAME) --config configs/config.yml
 
 build:
-		$(GOBUILD) -o $(BINARY_PATH)$(BINARY_NAME) -v cmd/deception-proxy/main.go
+		$(GOBUILD) -o $(BINARY_PATH)$(BINARY_NAME) -v cmd/chaos-proxy/main.go
 
 test:
 		mkdir -p report

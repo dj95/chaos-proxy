@@ -6,7 +6,7 @@ core:
     #   - "debug"
     #   - "info"
     #
-    # If another value is set, deception-proxy will fall
+    # If another value is set, chaos-proxy will fall
     # back to the info level.
     log_level: "info"
 
@@ -20,10 +20,10 @@ core:
     # to the text format.
     log_format: "json"
 
-    # address The address deception-proxy will bind on
+    # address The address chaos-proxy will bind on
     address: "0.0.0.0"
 
-    # port The port deception-proxy's api will bind on
+    # port The port chaos-proxy's api will bind on
     port: 3000
 
 # conn configures the connection parameters like bandwidth

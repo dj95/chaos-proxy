@@ -1,4 +1,4 @@
 vendor/
 report/
-deception-proxy
+chaos-proxy
 *.log

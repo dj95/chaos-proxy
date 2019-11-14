@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/dj95/deception-proxy/pkg/config"
+	"github.com/dj95/chaos-proxy/pkg/config"
 )
 
 func TestTCPStartListener(t *testing.T) {

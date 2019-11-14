@@ -7,18 +7,18 @@ FROM golang
 ENV GO111MODULE on
 
 # copy the local package files to the container's workspace.
-COPY . /go/src/github.com/dj95/deception-proxy
+COPY . /go/src/github.com/dj95/chaos-proxy
 
 # set the working directory to build the application
-WORKDIR /go/src/github.com/dj95/deception-proxy
+WORKDIR /go/src/github.com/dj95/chaos-proxy
 
 # compile the program
 RUN CGO_ENABLED=0 GOOS=linux go build \
     -ldflags="-s -w" \
     -a \
     -installsuffix cgo \
-    -o /go/bin/deception-proxy \
-    /go/src/github.com/dj95/deception-proxy/cmd/deception-proxy/main.go
+    -o /go/bin/chaos-proxy \
+    /go/src/github.com/dj95/chaos-proxy/cmd/chaos-proxy/main.go
 
 
 # STEP 2 - Build a minimal container
@@ -33,13 +33,13 @@ RUN apk update \
  && rm -rf /var/cache/apk/*
 
 # copy the static executable
-COPY --from=0 /go/bin/deception-proxy /deception-proxy
+COPY --from=0 /go/bin/chaos-proxy /chaos-proxy
 
 # copy the config and web content into the container
 COPY configs/config.yml /config.yml
 
 # define the entrypoint
-ENTRYPOINT ["/deception-proxy"]
+ENTRYPOINT ["/chaos-proxy"]
 
 # expose port 8080
 EXPOSE 8080

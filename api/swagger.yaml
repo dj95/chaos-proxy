@@ -3,7 +3,7 @@ info:
   description: |
     A small proxy to test out applications with different bandwidth, latency and packet loss 
   version: "1.0.0"
-  title: "deception-proxy"
+  title: "chaos-proxy"
 
 host: "127.0.0.1:3000"
 basePath: "/"

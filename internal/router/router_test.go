@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/dj95/deception-proxy/pkg/proxy"
+	"github.com/dj95/chaos-proxy/pkg/proxy"
 )
 
 func TestSetup(t *testing.T) {

@@ -4,7 +4,7 @@ package proxy
 import (
 	"fmt"
 
-	"github.com/dj95/deception-proxy/pkg/config"
+	"github.com/dj95/chaos-proxy/pkg/config"
 )
 
 // Proxy Interface for the proxy server of one target.

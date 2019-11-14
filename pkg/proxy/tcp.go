@@ -10,7 +10,7 @@ import (
 	"github.com/cevatbarisyilmaz/lossy"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/dj95/deception-proxy/pkg/config"
+	"github.com/dj95/chaos-proxy/pkg/config"
 )
 
 // TCPProxy Proxy tcp requests

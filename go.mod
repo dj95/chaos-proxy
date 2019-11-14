@@ -1,4 +1,4 @@
-module github.com/dj95/deception-proxy
+module github.com/dj95/chaos-proxy
 
 go 1.12
 

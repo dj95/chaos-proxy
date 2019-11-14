@@ -7,8 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/dj95/deception-proxy/internal/middleware"
-	"github.com/dj95/deception-proxy/pkg/proxy"
+	"github.com/dj95/chaos-proxy/internal/middleware"
+	"github.com/dj95/chaos-proxy/pkg/proxy"
 )
 
 // Setup Initialize a new gin engine with routes and middlewares

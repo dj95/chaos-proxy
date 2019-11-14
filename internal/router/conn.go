@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 
-	"github.com/dj95/deception-proxy/pkg/config"
-	"github.com/dj95/deception-proxy/pkg/proxy"
+	"github.com/dj95/chaos-proxy/pkg/config"
+	"github.com/dj95/chaos-proxy/pkg/proxy"
 )
 
 // ConnHandler Return all configured proxy connections.
