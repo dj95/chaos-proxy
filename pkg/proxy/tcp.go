@@ -15,7 +15,14 @@ import (
 
 // TCPProxy Proxy tcp requests
 type TCPProxy struct {
-	Target *config.Target
+	Target   *config.Target
+	listener net.Listener
+	closed   bool
+}
+
+// Config Return the current confiuration.
+func (p *TCPProxy) Config() *config.Target {
+	return p.Target
 }
 
 // StartListener Start a listener and handle incoming connections.
@@ -28,35 +35,66 @@ func (p *TCPProxy) StartListener() error {
 
 	// error handling
 	if err != nil {
+		// log the accepted connection
+		log.WithFields(log.Fields{
+			"protocol": "tcp",
+			"target":   p.Target.Target,
+		}).Errorf("error creating listener: %s", err.Error())
+
 		return err
 	}
 
+	// save the listener
+	p.listener = listener
+
+	// iniialize the close indicator
+	p.closed = false
+
 	// run in an infinite loop
-	for {
-		// accept a new connection
-		conn, err := listener.Accept()
+	go func() {
+		for {
+			// accept a new connection
+			conn, err := listener.Accept()
 
-		// log the accepted connection
-		log.WithFields(log.Fields{
-			"protocol":    "tcp",
-			"remote_addr": conn.RemoteAddr().String(),
-			"target":      p.Target.Target,
-		}).Infof("accepting connection")
-
-		// error handling
-		if err != nil {
+			// log the accepted connection
 			log.WithFields(log.Fields{
-				"protocol":    "tcp",
-				"remote_addr": conn.RemoteAddr().String(),
-				"target":      p.Target.Target,
-			}).Warnf("accepting the connection failed: %s", err.Error())
+				"protocol": "tcp",
+				"target":   p.Target.Target,
+			}).Infof("accepting connection")
 
-			continue
+			// error handling
+			if err != nil {
+				log.WithFields(log.Fields{
+					"protocol": "tcp",
+					"target":   p.Target.Target,
+				}).Warnf("accepting the connection failed: %s", err.Error())
+
+				// if the proxy is closed...
+				if p.closed {
+					// ...return
+					return
+				}
+
+				continue
+			}
+
+			// handle the requests concurrent
+			go p.handleRequest(conn)
 		}
+	}()
 
-		// handle the requests concurrent
-		go p.handleRequest(conn)
-	}
+	return nil
+}
+
+// Shutdown Close the listener to shutdown the proxy
+func (p *TCPProxy) Shutdown() error {
+	log.WithFields(log.Fields{
+		"target": p.Target.Target,
+	}).Info("shutting down proxy")
+
+	p.closed = true
+
+	return p.listener.Close()
 }
 
 func (p *TCPProxy) handleRequest(clientConn net.Conn) {

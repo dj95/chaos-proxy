@@ -34,6 +34,7 @@ func TestParse(t *testing.T) {
 			},
 			expectedResult: map[string]*Target{
 				"testconn": {
+					ID:        "testconn",
 					Protocol:  "tcp",
 					Target:    "127.0.0.1:80",
 					Bandwidth: 8388608,

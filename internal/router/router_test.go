@@ -5,6 +5,8 @@ import (
 
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/dj95/deception-proxy/pkg/proxy"
 )
 
 func TestSetup(t *testing.T) {
@@ -23,7 +25,9 @@ func TestSetup(t *testing.T) {
 	for _, test := range tests {
 		viper.Set("conn.target", test.targetURL)
 
-		_, err := Setup()
+		_, err := Setup(
+			[]proxy.Proxy{},
+		)
 
 		assert.Equalf(t, test.expectedError, err != nil, test.description)
 

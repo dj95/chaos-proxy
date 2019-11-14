@@ -1,13 +1,18 @@
+// Package router Implement a small webserver offering an api
+// to control and setup different proxy connections.
 package router
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/dj95/deception-proxy/internal/middleware"
+	"github.com/dj95/deception-proxy/pkg/proxy"
 )
 
 // Setup Initialize a new gin engine with routes and middlewares
-func Setup() (*gin.Engine, error) {
+func Setup(proxies []proxy.Proxy) (*gin.Engine, error) {
 	// create a new empty engine
 	engine := gin.New()
 
@@ -21,12 +26,19 @@ func Setup() (*gin.Engine, error) {
 	engine.GET("/healthz", HealthzHandler)
 
 	// define an api group for target based routes
-	targetGroup := engine.Group("/api/{target}")
+	apiGroup := engine.Group("/api")
 	{
-		// TODO: get config
-		// TODO: set different single parameters
-		targetGroup.GET("/config")
+		// get all configured proxy connections
+		apiGroup.GET("/conn", ConnHandler(proxies))
+
+		// manage single proxy connections
+		apiGroup.GET("/conn/:id", ConnIDHandler(proxies))
+		apiGroup.POST("/conn/:id", ConnUpdateHandler(proxies))
 	}
+
+	// serve some swagger documentation
+	engine.StaticFS("/doc", http.Dir("./web/swaggerui"))
+	engine.StaticFile("/swagger.yaml", "./api/swagger.yaml")
 
 	// return the engine
 	return engine, nil

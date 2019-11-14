@@ -1,3 +1,4 @@
+// Package proxy Implement proxy components for different protocols.
 package proxy
 
 import (
@@ -8,7 +9,12 @@ import (
 
 // Proxy Interface for the proxy server of one target.
 type Proxy interface {
+	// status functions
+	Config() *config.Target
+
+	// management functions
 	StartListener() error
+	Shutdown() error
 }
 
 // New Create and initialize a new proxy connection

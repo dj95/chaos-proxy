@@ -1,3 +1,4 @@
+// Package config Parse and create config objects.
 package config
 
 import (
@@ -8,19 +9,20 @@ import (
 
 // Target Represent a target in the configuration.
 type Target struct {
-	Protocol   string   `mapstructure:"protocol"`
-	Target     string   `mapstructure:"target"`
-	Bandwidth  int      `mapstructure:"bandwidth"`
-	Overhead   string   `mapstructure:"overhead"`
-	Latency    *Latency `mapstructure:"latency"`
-	LossRate   float64  `mapstructure:"loss_rate"`
-	ListenPort int      `mapstructure:"listen_port"`
+	ID         string   `json:"id"`
+	Protocol   string   `json:"protocol" mapstructure:"protocol"`
+	Target     string   `json:"target" mapstructure:"target"`
+	Bandwidth  int      `json:"bandwidth" mapstructure:"bandwidth"`
+	Overhead   string   `json:"overhead" mapstructure:"overhead"`
+	Latency    *Latency `json:"latency" mapstructure:"latency"`
+	LossRate   float64  `json:"loss_rate" mapstructure:"loss_rate"`
+	ListenPort int      `json:"listen_port" mapstructure:"listen_port"`
 }
 
 // Latency Hold the maximal and minimal latency.
 type Latency struct {
-	Min int `mapstructure:"min"`
-	Max int `mapstructure:"max"`
+	Min int `json:"min" mapstructure:"min"`
+	Max int `json:"max" mapstructure:"max"`
 }
 
 // Parse Parse the configuration into a target map.
@@ -45,6 +47,9 @@ func Parse(input map[string]interface{}) map[string]*Target {
 
 			continue
 		}
+
+		// save the key as id
+		target.ID = key
 
 		// save the target if no error occurred
 		output[key] = target

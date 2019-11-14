@@ -90,6 +90,8 @@ func main() {
 		viper.GetStringMap("conn"),
 	)
 
+	var runningProxies []proxy.Proxy
+
 	// start the proxy servers for every target
 	for name, target := range targets {
 		log.Infof("starting target: %s", name)
@@ -105,11 +107,25 @@ func main() {
 		}
 
 		// start the listener
-		go proxyConn.StartListener()
+		err = proxyConn.StartListener()
+
+		// error handling
+		if err != nil {
+			log.WithFields(log.Fields{
+				"target": target,
+			}).Errorf("cannot start proxy: %s", err.Error())
+
+			continue
+		}
+
+		// save the proxy for later usage
+		runningProxies = append(runningProxies, proxyConn)
 	}
 
 	// initialize a new router for the api
-	router, _ := router.Setup()
+	router, _ := router.Setup(
+		runningProxies,
+	)
 
 	// start the router
 	router.Run(fmt.Sprintf(

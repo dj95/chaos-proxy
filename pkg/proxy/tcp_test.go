@@ -27,7 +27,7 @@ func TestTCPStartListener(t *testing.T) {
 		{
 			description: "port out of range",
 			proxy: &TCPProxy{
-				&config.Target{
+				Target: &config.Target{
 					ListenPort: 666666,
 				},
 			},
@@ -36,7 +36,7 @@ func TestTCPStartListener(t *testing.T) {
 		{
 			description: "http test",
 			proxy: &TCPProxy{
-				&config.Target{
+				Target: &config.Target{
 					Protocol:   "tcp",
 					Target:     strings.TrimPrefix(s.URL, "http://"),
 					ListenPort: rand.Intn(10000) + 50000,

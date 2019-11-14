@@ -6,6 +6,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/dj95/deception-proxy/pkg/proxy"
 )
 
 func TestHealthzHandler(t *testing.T) {
@@ -26,7 +28,9 @@ func TestHealthzHandler(t *testing.T) {
 		},
 	}
 
-	s, _ := Setup()
+	s, _ := Setup(
+		[]proxy.Proxy{},
+	)
 
 	for _, test := range tests {
 		w := httptest.NewRecorder()

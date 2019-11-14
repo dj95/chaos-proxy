@@ -5,7 +5,7 @@ info:
   version: "1.0.0"
   title: "deception-proxy"
 
-host: "."
+host: "127.0.0.1:3000"
 basePath: "/"
 tags:
 - name: "connections"
@@ -16,6 +16,7 @@ tags:
   description: "Routes for debugging and educational purposes. They are disabled in production mode!"
 
 schemes:
+- "http"
 - "https"
 paths:
   /healthz:
@@ -122,8 +123,14 @@ paths:
           description: "Remote-access details are returned"
           schema:
             $ref: '#/definitions/status'
-        404:
-          description: "Connection not found"
+        400:
+          description: "Bad request. Input format or config is wrong."
+          schema:
+            $ref: '#/definitions/status'
+        500:
+          description: "Something bad happened with the server. Please check the error message."
+          schema:
+            $ref: '#/definitions/status'
           
 
 definitions:
