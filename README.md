@@ -45,12 +45,17 @@ In order to configure the container you can use a config file, which will look l
 
 - Customize the [./configs/config.yml](./configs/config.yml)
 - Run `make run` in order to start the server
-- When running the server the running proxy connections can be configured on the fly via an api. The api runs on a configured port under `/api`. For the documentation take a look at [./api/swagger.yml](./api/swagger.yml) or open the `/doc` route when running in development mode.
+- When running the server the running proxy connections can be configured on the fly via an api. The api runs on a configured port under `/api`. For the documentation take a look at [./api/swagger.yml](./api/swagger.yml) or open the `/doc` route when running in development mode(log_level set to debug).
 
 
 ## 🤝 Contributing
 
 If you are missing features or find some annoying bugs please feel free to submit the as issue and a bugfix with in a pull request :)
+
+
+## 🚧 TODO
+
+- implement udp handler
 
 
 ## 📝 License
