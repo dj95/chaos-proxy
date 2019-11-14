@@ -1,6 +1,8 @@
 package proxy
 
 import (
+	"fmt"
+	"math/rand"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -38,7 +40,7 @@ func TestTCPStartListener(t *testing.T) {
 				&config.Target{
 					Protocol:   "tcp",
 					Target:     strings.TrimPrefix(s.URL, "http://"),
-					ListenPort: 8080,
+					ListenPort: rand.Intn(10000) + 50000,
 					Latency: &config.Latency{
 						Min: 10,
 						Max: 100,
@@ -56,6 +58,7 @@ func TestTCPStartListener(t *testing.T) {
 			expectedError bool
 		}) {
 			err := test.proxy.StartListener()
+			fmt.Printf("%v\n", err)
 
 			assert.Equalf(t, test.expectedError, err != nil, test.description)
 		}(&test)
