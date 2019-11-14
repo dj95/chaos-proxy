@@ -1,7 +1,6 @@
 package proxy
 
 import (
-	"fmt"
 	"math/rand"
 	"net/http"
 	"net/http/httptest"
@@ -58,7 +57,6 @@ func TestTCPStartListener(t *testing.T) {
 			expectedError bool
 		}) {
 			err := test.proxy.StartListener()
-			fmt.Printf("%v\n", err)
 
 			assert.Equalf(t, test.expectedError, err != nil, test.description)
 		}(&test)
