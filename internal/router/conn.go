@@ -70,7 +70,7 @@ func ConnUpdateHandler(proxies []proxy.Proxy) gin.HandlerFunc {
 
 		// try to bind the request body to the config
 		if err := c.ShouldBindJSON(&config); err != nil {
-			// if an error occured, a status json with status code
+			// if an error occurred, a status json with status code
 			// 404 (Bad request) is returned
 			c.JSON(
 				http.StatusBadRequest,
