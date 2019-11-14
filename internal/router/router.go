@@ -37,8 +37,10 @@ func Setup(proxies []proxy.Proxy) (*gin.Engine, error) {
 	}
 
 	// serve some swagger documentation
-	engine.StaticFS("/doc", http.Dir("./web/swaggerui"))
-	engine.StaticFile("/swagger.yaml", "./api/swagger.yaml")
+	if gin.Mode() == gin.DebugMode {
+		engine.StaticFS("/doc", http.Dir("./web/swaggerui"))
+		engine.StaticFile("/swagger.yaml", "./api/swagger.yaml")
+	}
 
 	// return the engine
 	return engine, nil
