@@ -6,7 +6,7 @@
   <a href="https://cloud.drone.io/dj95/chaos-proxy">
     <img alt="BuildStatus" src="https://cloud.drone.io/api/badges/dj95/chaos-proxy/status.svg" />
   </a>
-  <a href="https://godoc.org/github.com/dj95/chaos-proxy">
+  <a href="https://godoc.org/github.com/dj95/chaos-proxy/pkg/proxy">
     <img alt="GoDoc" src="https://godoc.org/github.com/dj95/chaos-proxy?status.svg" />
   </a>
   <a href="https://goreportcard.com/report/github.com/dj95/chaos-proxy">
