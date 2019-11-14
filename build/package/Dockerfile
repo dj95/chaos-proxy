@@ -41,5 +41,8 @@ COPY configs/config.yml /config.yml
 # define the entrypoint
 ENTRYPOINT ["/chaos-proxy"]
 
+# define proper healthchecks
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "/chaos-proxy", "--healthcheck" ]
+
 # expose port 8080
 EXPOSE 8080
