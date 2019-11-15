@@ -23,7 +23,8 @@ func Setup(proxies []proxy.Proxy) (*gin.Engine, error) {
 	)
 
 	// register routes
-	engine.GET("/healthz", HealthzHandler)
+	engine.GET("/healthz", HealthzHandler())
+	engine.GET("/metrics", MetricsHandler())
 
 	// define an api group for target based routes
 	apiGroup := engine.Group("/api")

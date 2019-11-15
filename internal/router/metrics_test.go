@@ -10,7 +10,7 @@ import (
 	"github.com/dj95/chaos-proxy/pkg/proxy"
 )
 
-func TestHealthzHandler(t *testing.T) {
+func TestMetricsHandler(t *testing.T) {
 	tests := []struct {
 		description  string
 		expectedCode int
@@ -19,7 +19,6 @@ func TestHealthzHandler(t *testing.T) {
 		{
 			description:  "success",
 			expectedCode: 200,
-			expectedBody: "OK",
 		},
 	}
 
@@ -31,13 +30,12 @@ func TestHealthzHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		req, _ := http.NewRequest(
 			"GET",
-			"/healthz",
+			"/metrics",
 			nil,
 		)
 
 		s.ServeHTTP(w, req)
 
 		assert.Equalf(t, test.expectedCode, w.Code, test.description)
-		assert.Equalf(t, test.expectedBody, w.Body.String(), test.description)
 	}
 }

@@ -7,9 +7,11 @@ import (
 )
 
 // HealthzHandler Indicates if the service is running healthy
-func HealthzHandler(c *gin.Context) {
-	c.String(
-		http.StatusOK,
-		"OK",
-	)
+func HealthzHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.String(
+			http.StatusOK,
+			"OK",
+		)
+	}
 }
