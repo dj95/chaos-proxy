@@ -50,7 +50,7 @@ In order to configure the container you can use a config file, which will look l
 
 ## 🤝 Contributing
 
-If you are missing features or find some annoying bugs please feel free to submit the as issue and a bugfix with in a pull request :)
+If you are missing features or find some annoying bugs please feel free to submit an issue or a bugfix within a pull request :)
 
 
 ## 🚧 TODO
