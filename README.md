@@ -6,6 +6,9 @@
   <a href="https://cloud.drone.io/dj95/chaos-proxy">
     <img alt="BuildStatus" src="https://cloud.drone.io/api/badges/dj95/chaos-proxy/status.svg" />
   </a>
+  <a href="https://github.com/dj95/chaos-proxy/actions?query=workflow%3AGo">
+    <img alt="GoActions" src="https://github.com/dj95/chaos-proxy/workflows/Go/badge.svg" />
+  </a>
   <a href="https://godoc.org/github.com/dj95/chaos-proxy/pkg/proxy">
     <img alt="GoDoc" src="https://godoc.org/github.com/dj95/chaos-proxy?status.svg" />
   </a>
