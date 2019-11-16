@@ -2,3 +2,4 @@ vendor/
 report/
 chaos-proxy
 *.log
+.scannerwork/
