@@ -21,6 +21,12 @@
   <a href="https://codecov.io/gh/dj95/chaos-proxy">
     <img src="https://codecov.io/gh/dj95/chaos-proxy/branch/master/graph/badge.svg" />
   </a>
+  <a href="https://sonarcloud.io/dashboard?id=dj95_chaos-proxy">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=dj95_chaos-proxy&metric=sqale_rating" />
+  </a>
+  <a href="https://sonarcloud.io/dashboard?id=dj95_chaos-proxy">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=dj95_chaos-proxy&metric=alert_status" />
+  </a>
 </p>
 
 
