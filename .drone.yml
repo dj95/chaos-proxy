@@ -45,6 +45,8 @@ steps:
 
 - name: sonarqube
   image: aosapps/drone-sonar-plugin
+  depends_on:
+  - unittests 
   settings:
     sonar_host:
       from_secret: sonar_host
