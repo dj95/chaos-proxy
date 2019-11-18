@@ -53,3 +53,25 @@ steps:
     sonar_token:
       from_secret: sonar_token
 
+- name: fuzzit
+  image: golang
+  environment:
+    FUZZIT_API_KEY:
+      from_secret: FUZZIT_API_KEY
+  commands:
+  # install the fuzz builder
+  - go get -u github.com/fuzzitdev/example-go github.com/dvyukov/go-fuzz/go-fuzz-build
+  # build the project for fuzzit
+  - go-fuzz-build -o chaos-proxy-fuzzer.zip
+  - | # download the fuzzer
+      wget -q -O fuzzit \
+      https://github.com/fuzzitdev/fuzzit/releases/latest/download/fuzzit_Linux_x86_64
+  # make the binary executable
+  - chmod a+x fuzzit
+  # create a fuzzing target if it does not exist
+  - ./fuzzit create target --skip-if-exists chaos-proxy-go
+  - | # create a fuzzing job for this project
+      ./fuzzit create job \
+        --engine go-fuzz \
+        --type fuzzing dj95-gh/chaos-proxy-go
+        ./chaos-proxy-fuzzer.zip
