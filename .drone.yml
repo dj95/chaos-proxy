@@ -54,7 +54,9 @@ steps:
       from_secret: sonar_token
 
 - name: fuzzit
-  image: golang
+  image: golang:1.12
+  depends_on:
+  - unittests 
   environment:
     FUZZIT_API_KEY:
       from_secret: FUZZIT_API_KEY
