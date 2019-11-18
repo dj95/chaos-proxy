@@ -62,11 +62,11 @@ steps:
       from_secret: FUZZIT_API_KEY
   commands:
   # go to the GOROOT
-  - pushd /go/src 
+  - cd /go/src 
   # install the fuzz builder
   - go get -u github.com/fuzzitdev/example-go github.com/dvyukov/go-fuzz/go-fuzz-build
   # go back to the project
-  - popd
+  - cd $DRONE_WORKSPACE
   # build the project for fuzzit
   - go-fuzz-build -o chaos-proxy-fuzzer.zip
   - | # download the fuzzer
