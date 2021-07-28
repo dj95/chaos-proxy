@@ -3,3 +3,4 @@ report/
 chaos-proxy
 *.log
 .scannerwork/
+.git_cache/
