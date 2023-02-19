@@ -3,9 +3,6 @@
 <p align="center">
   A proxy for testing out the behaviour of network applications with bandwidth limitations, latency and packet loss.
   <br><br>
-  <a href="https://cloud.drone.io/dj95/chaos-proxy">
-    <img alt="BuildStatus" src="https://cloud.drone.io/api/badges/dj95/chaos-proxy/status.svg" />
-  </a>
   <a href="https://github.com/dj95/chaos-proxy/actions?query=workflow%3AGo">
     <img alt="GoActions" src="https://github.com/dj95/chaos-proxy/workflows/Go/badge.svg" />
   </a>
@@ -20,12 +17,6 @@
   </a>
   <a href="https://codecov.io/gh/dj95/chaos-proxy">
     <img src="https://codecov.io/gh/dj95/chaos-proxy/branch/master/graph/badge.svg" />
-  </a>
-  <a href="https://sonarcloud.io/dashboard?id=dj95:chaos-proxy">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=dj95:chaos-proxy&metric=sqale_rating" />
-  </a>
-  <a href="https://sonarcloud.io/dashboard?id=dj95:chaos-proxy">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=dj95:chaos-proxy&metric=alert_status" />
   </a>
 </p>
 
