@@ -110,7 +110,7 @@ func (p *TCPProxy) handleRequest(clientConn net.Conn) {
 	}
 
 	// wrap it in a lossy connection
-	lossyConn := lossy.Conn(
+	lossyConn := lossy.NewConn(
 		conn,
 		p.Target.Bandwidth,
 		time.Duration(p.Target.Latency.Min),
